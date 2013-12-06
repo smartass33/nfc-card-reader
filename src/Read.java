@@ -25,7 +25,7 @@ public class Read {
 
 	private final String USER_AGENT = "Mozilla/5.0";
 
-	
+	  
 	public Read() {
 
 		try {
@@ -158,12 +158,12 @@ public class Read {
     	Date date = new Date();
 	    System.out.println(formater.format(date));
 	    String eventType = employee.status?"ENTREE":"SORTIE";
-	    String event = employee.firstName+ " "+employee.lastName +": "+eventType+" effectuée à "+formater.format(date);
+	    String event = employee.firstName+ " "+employee.lastName +": "+eventType+" effectu��e �� "+formater.format(date);
 	    
 	   if (resTable[0]!=null && resTable[0].length()>1){
 		   this.createPane(event);	
 	   }        
-		Thread.sleep(3000);
+		Thread.sleep(3000);x
 		return userId;
 	}
 

@@ -1,7 +1,7 @@
 
 import java.util.Date;
 
-
+  
 class InAndOut {
 	public Date getLoggingTime() {
 		return loggingTime;

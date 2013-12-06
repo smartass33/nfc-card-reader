@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.TimerTask;
 
 import javax.swing.Timer;
-
+  
 
 public class CardPolling implements ActionListener {
 
