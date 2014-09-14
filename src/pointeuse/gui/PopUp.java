@@ -4,36 +4,42 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.JDialog;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
-public class PopUp {
+public class PopUp extends JFrame  {
+
+
 
 
     public void createPane(String event){
-    	final JOptionPane optionPane = new JOptionPane(event, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
-    	final JDialog dialog = new JDialog();
-    	dialog.setTitle("Message");
-    	dialog.setModal(true);
-    	dialog.setLocationRelativeTo(null);
-    	dialog.setContentPane(optionPane);
-    	dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-    	dialog.pack();
+    	
+		try {
+	
+			JEditorPane editorPane = new JEditorPane("text/html", event);
+			this.add(editorPane);
 
-    	Timer timer = new Timer(3000, new AbstractAction() {
-    	    @Override
-    	    public void actionPerformed(ActionEvent ae) {
-    	        dialog.dispose();
-    	    }
-    	});
+	    	Timer timer = new Timer(3000, new AbstractAction() {
+	    	    @Override
+	    	    public void actionPerformed(ActionEvent ae) {
+	    	    	dispose();
+	    	    }
+	    	});
+		    
+	    	timer.setRepeats(false);//the timer should only go off once
 	    
-    	timer.setRepeats(false);//the timer should only go off once
-    	//start timer to close JDialog as dialog modal we must start the timer before its visible
-    	timer.start();
-    	dialog.setVisible(true);
+	    	//start timer to close JDialog as dialog modal we must start the timer before its visible
+	    	timer.start();
+			setVisible(true);
+			setSize(450, 240);
+			setDefaultCloseOperation(EXIT_ON_CLOSE);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Some problem has occured" + e.getMessage());
+		}
     }
-
-    
     
  
 }

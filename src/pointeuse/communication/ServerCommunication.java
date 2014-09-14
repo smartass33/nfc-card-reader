@@ -1,18 +1,24 @@
 package pointeuse.communication;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.ByteBuffer;
+
 import javax.smartcardio.CardChannel;
 import javax.smartcardio.CardException;
+
 import pointeuse.pojo.SimpleEmployee;
+
 import com.google.gson.Gson;
 
 public class ServerCommunication {
 
 	private final String USER_AGENT = "Mozilla/5.0";
+
 
 	/**
 	 * @param args
@@ -20,9 +26,8 @@ public class ServerCommunication {
 	public SimpleEmployee createEntry(String userName) throws Exception {
 		SimpleEmployee employee = null;
 		String outputString = "";
-
-		String url = "http://localhost:8080/pointeuse/employee/getUser/?username="
-				+ userName;
+		//String url = "http://localhost:8080/pointeuse/employee/logEmployee/?username="+ userName;
+		String url = "http://192.168.1.15:8080/pointeuse/employee/logEmployee/?username="+ userName;
 
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -53,6 +58,31 @@ public class ServerCommunication {
 		}
 		return employee;
 	}
+	
+	
+	public String retrieveContent(String userName) throws IOException{
+		String outputString = "";
+		StringBuilder builder = new StringBuilder();
+
+		//String url = "http://localhost:8080/pointeuse/list";
+		String url = "http://localhost:8080/pointeuse/employee/logEmployee/?username="+ userName;
+
+		URL oracle = new URL(url);
+        URLConnection yc = oracle.openConnection();
+        BufferedReader in = new BufferedReader(new InputStreamReader(
+                                    yc.getInputStream()));
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+			//outputString = inputLine;
+			builder.append(inputLine).append("\n");
+
+            
+        }
+        in.close();
+        System.out.println(builder.toString());
+        return builder.toString();
+	}
+	
 
 	public String send(byte[] cmd, CardChannel channel) {
 		String res = "";
